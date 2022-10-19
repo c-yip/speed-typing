@@ -41,7 +41,6 @@ function App() {
 
   function resetGame() {
     setTime(GAME_TIME);
-    setGameRunning(false);
     setWordCount('');
     setText('');
   }
@@ -55,7 +54,7 @@ function App() {
         onChange={handleChange}
       ></textarea>
       <h4 className='time-remaining'>Time Remaining: {time} seconds</h4>
-      <button className='start-button' onClick={time === 0 ? resetGame : startGame}>{time === 0 ? 'Reset' : 'Start'}</button>
+      <button disabled={gameRunning} className='start-button' onClick={time === 0 ? resetGame : startGame}>{time === 0 ? 'Reset' : 'Start'}</button>
       <h1 className='word-count'>Word Count: { time === 0 ? wordCount : ''}</h1>
     </div>
   );
