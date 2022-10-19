@@ -52,6 +52,7 @@ function App() {
         name='text'
         value={text}
         onChange={handleChange}
+        disabled={!gameRunning}
       ></textarea>
       <h4 className='time-remaining'>Time Remaining: {time} seconds</h4>
       <button disabled={gameRunning} className='start-button' onClick={time === 0 ? resetGame : startGame}>{time === 0 ? 'Reset' : 'Start'}</button>
