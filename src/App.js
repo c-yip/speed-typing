@@ -5,6 +5,7 @@ function App() {
   const [text, setText] = useState('');
   const [time, setTime] = useState(5);
   const [gameRunning, setGameRunning] = useState(false);
+  const [wordCount, setWordCount] = useState();
   
   function handleChange(e) {
     const {value} = e.target;
@@ -26,6 +27,7 @@ function App() {
 
     if (time === 0) {
       setGameRunning(false);
+      setWordCount(calculateWordCount());
     }
   }, [time, gameRunning]);
 
@@ -43,7 +45,7 @@ function App() {
       ></textarea>
       <h4 className='time-remaining'>Time Remaining: {time} seconds</h4>
       <button className='start-button' onClick={handleClick}>Start</button>
-      <h1 className='word-count'>Word Count:</h1>
+      <h1 className='word-count'>Word Count: { time === 0 ? wordCount : ''}</h1>
     </div>
   );
 }
