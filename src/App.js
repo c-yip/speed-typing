@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 
 function App() {
   const [text, setText] = useState('');
-  const [time, setTime] = useState(5);
+  const [time, setTime] = useState(2);
   const [gameRunning, setGameRunning] = useState(false);
   const [wordCount, setWordCount] = useState();
   
@@ -14,7 +14,8 @@ function App() {
 
   // calculates the word count of text state
   function calculateWordCount() {
-    return text.split(/\s+\b/).length || 0; // return length without empty spaces
+    const words = text.trim().split(" ") // removes spaces
+    return words.filter(word => word !== "").length // removes blank textarea
   }
 
   // decrements time every one second
