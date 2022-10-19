@@ -1,13 +1,14 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 function App() {
-  const GAME_TIME = 15;
+  const GAME_TIME = 3;
   
   const [text, setText] = useState('');
   const [time, setTime] = useState(GAME_TIME);
   const [gameRunning, setGameRunning] = useState(false);
   const [wordCount, setWordCount] = useState();
+  const textAreaRef = useRef(null);
   
   function handleChange(e) {
     const {value} = e.target;
@@ -37,6 +38,8 @@ function App() {
   function startGame() {
     setText('');
     setGameRunning(true);
+    textAreaRef.current.disabled = false;
+    textAreaRef.current.focus();
   }
 
   function resetGame() {
@@ -53,6 +56,7 @@ function App() {
         value={text}
         onChange={handleChange}
         disabled={!gameRunning}
+        ref={textAreaRef}
       ></textarea>
       <h4 className='time-remaining'>Time Remaining: {time} seconds</h4>
       <button disabled={gameRunning} className='start-button' onClick={time === 0 ? resetGame : startGame}>{time === 0 ? 'Reset' : 'Start'}</button>
