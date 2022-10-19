@@ -9,6 +9,11 @@ function App() {
     setText(value);
   }
 
+  // calculates the word count of text state
+  function calculateWordCount() {
+    return text.split(/\s+\b/).length || 0; // return length without empty spaces
+  }
+
   return (
     <div className="App">
       <h1 className='title'>Speed Typing</h1>
