@@ -2,8 +2,10 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 
 function App() {
+  const GAME_TIME = 15;
+  
   const [text, setText] = useState('');
-  const [time, setTime] = useState(2);
+  const [time, setTime] = useState(GAME_TIME);
   const [gameRunning, setGameRunning] = useState(false);
   const [wordCount, setWordCount] = useState();
   
@@ -14,12 +16,12 @@ function App() {
 
   // calculates the word count of text state
   function calculateWordCount() {
-    const words = text.trim().split(" ") // removes spaces
-    return words.filter(word => word !== "").length // removes blank textarea
+    const words = text.trim().split(" "); // removes spaces
+    return words.filter(word => word !== "").length; // removes blank textarea
   }
 
-  // decrements time every one second
   useEffect(() => {
+    // decrements time every one second
     if (gameRunning && time > 0) {
       setTimeout(() => {
         setTime(time - 1);
@@ -30,10 +32,18 @@ function App() {
       setGameRunning(false);
       setWordCount(calculateWordCount());
     }
-  }, [time, gameRunning]);
+  }, [time, gameRunning, wordCount]);
 
-  function handleClick() {
+  function startGame() {
+    setText('');
     setGameRunning(true);
+  }
+
+  function resetGame() {
+    setTime(GAME_TIME);
+    setGameRunning(false);
+    setWordCount('');
+    setText('');
   }
   
   return (
@@ -45,7 +55,7 @@ function App() {
         onChange={handleChange}
       ></textarea>
       <h4 className='time-remaining'>Time Remaining: {time} seconds</h4>
-      <button className='start-button' onClick={handleClick}>Start</button>
+      <button className='start-button' onClick={time === 0 ? resetGame : startGame}>{time === 0 ? 'Reset' : 'Start'}</button>
       <h1 className='word-count'>Word Count: { time === 0 ? wordCount : ''}</h1>
     </div>
   );
