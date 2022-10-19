@@ -1,8 +1,9 @@
 import './App.css';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function App() {
   const [text, setText] = useState('');
+  const [time, setTime] = useState(5);
   
   function handleChange(e) {
     const {value} = e.target;
@@ -14,6 +15,15 @@ function App() {
     return text.split(/\s+\b/).length || 0; // return length without empty spaces
   }
 
+  // decrements time every one second
+  useEffect(() => {
+    if (time > 0) {
+      setTimeout(() => {
+        setTime(time - 1);
+      }, 1000);
+    }
+  }, [time]);
+  
   return (
     <div className="App">
       <h1 className='title'>Speed Typing</h1>
@@ -22,7 +32,7 @@ function App() {
         value={text}
         onChange={handleChange}
       ></textarea>
-      <h4 className='time-remaining'>Time Remaining:</h4>
+      <h4 className='time-remaining'>Time Remaining: {time} seconds</h4>
       <button className='start-button'>Start</button>
       <h1 className='word-count'>Word Count:</h1>
     </div>
