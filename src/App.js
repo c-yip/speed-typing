@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 function App() {
   const [text, setText] = useState('');
   const [time, setTime] = useState(5);
+  const [gameRunning, setGameRunning] = useState(false);
   
   function handleChange(e) {
     const {value} = e.target;
@@ -17,12 +18,20 @@ function App() {
 
   // decrements time every one second
   useEffect(() => {
-    if (time > 0) {
+    if (gameRunning && time > 0) {
       setTimeout(() => {
         setTime(time - 1);
       }, 1000);
     }
-  }, [time]);
+
+    if (time === 0) {
+      setGameRunning(false);
+    }
+  }, [time, gameRunning]);
+
+  function handleClick() {
+    setGameRunning(true);
+  }
   
   return (
     <div className="App">
@@ -33,7 +42,7 @@ function App() {
         onChange={handleChange}
       ></textarea>
       <h4 className='time-remaining'>Time Remaining: {time} seconds</h4>
-      <button className='start-button'>Start</button>
+      <button className='start-button' onClick={handleClick}>Start</button>
       <h1 className='word-count'>Word Count:</h1>
     </div>
   );
