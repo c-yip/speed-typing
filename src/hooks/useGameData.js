@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef} from 'react';
 
 function useGameData () {
-  const GAME_TIME = 3;
+  const GAME_TIME = 15;
   
   const [text, setText] = useState('');
   const [time, setTime] = useState(GAME_TIME);
